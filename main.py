@@ -13,4 +13,8 @@ bot = discord.Bot()
 async def on_ready():
     print(f"Logged in as: {bot.user}")
 
+@bot.slash_command(description="Do translation.")
+async def trans(ctx: ApplicationContext, *, arg):
+    await ctx.respond(arg)
+
 bot.run(TOKEN)
