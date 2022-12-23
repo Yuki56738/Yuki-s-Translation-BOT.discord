@@ -1,4 +1,6 @@
 import os
+
+import deepl
 from dotenv import load_dotenv
 import discord
 from discord import *
@@ -14,7 +16,11 @@ async def on_ready():
     print(f"Logged in as: {bot.user}")
 
 @bot.slash_command(description="Do translation.")
-async def trans(ctx: ApplicationContext, *, arg):
-    await ctx.respond(arg)
+async def trans(ctx: ApplicationContext, *, text):
+    translator = deepl.Translator(DEEPL_KEY)
+    result = translator.translate_text(text, target_lang='JA')
+    await ctx.respond(text)
+    await ctx.send(result)
+
 
 bot.run(TOKEN)
